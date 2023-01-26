@@ -8,8 +8,16 @@ const config = convict({
     env: 'NODE_ENV',
   },
   settings: {
-    apiBasePath: {
-      doc: 'Example payment gateway setting',
+    baseUrl: {
+      doc: 'base url path of the Stripe api',
+      default: 'https://api.stripe.com',
+    },
+    secretAPIKey: {
+      doc: 'Secret API Key',
+      default: '',
+    },
+    publicAPIKey: {
+      doc: 'Public API Key',
       default: '',
     },
   },

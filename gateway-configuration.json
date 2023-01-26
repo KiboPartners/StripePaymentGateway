@@ -1,0 +1,51 @@
+{
+  "supportedCards": [
+    {
+      "type": "visa",
+      "friendlyName": "Visa",
+      "paymentType": "CC"
+    },
+    {
+      "type": "mc",
+      "friendlyName": "Master Card",
+      "paymentType": "CC"
+    },
+    {
+      "type": "discover",
+      "friendlyName": "Discover",
+      "paymentType": "CC"
+    },
+    {
+      "type": "amex",
+      "friendlyName": "American Express",
+      "paymentType": "CC"
+    },
+    {
+      "type": "ApplePay",
+      "friendlyName": "Apple Pay",
+      "paymentType": "DW"
+    },
+    {
+      "type": "PaypalExpress",
+      "friendlyName": "Paypal Express",
+      "paymentType": "3P"
+    },
+    {
+      "type": "Stripe",
+      "friendlyName": "Stripe",
+      "paymentType": "3P"
+    }
+  ],
+  "features": ["CreditCards", "GiftCards"],
+  "configuration": {},
+  "administationUi": [
+    {
+      "xtype": "textfield",
+      "name": "secretKey",
+      "fieldLabel": "Secret API Key",
+      "allowBlank": false,
+      "isPublic": false
+    }
+  ],
+  "schemaVersion": "1.0"
+}

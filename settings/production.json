@@ -1,5 +1,5 @@
 {
   "settings": {
-    "apiBasePath": ""
+    "baseUrl": "https://api.stripe.com"
   }
 }

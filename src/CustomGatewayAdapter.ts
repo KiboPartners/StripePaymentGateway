@@ -1,4 +1,4 @@
-import type {
+import {
   AdapterContext,
   PaymentGatwayAdapter,
   CaptureRequest,
@@ -17,68 +17,67 @@ import type {
   AuthorizeIdKeyNameResponse,
   GatewayInteraction,
   ValidateResponse,
+  ConnectionStatuses,
 } from '@kibocommerce/kibo-paymentgateway-hosting'
-import { SessionRequest } from '@kibocommerce/kibo-paymentgateway-hosting/dist/types/models/SessionRequest'
-import { SessionResponse } from '@kibocommerce/kibo-paymentgateway-hosting/dist/types/models/SessionResponse'
-import type { CustomAdapterSettings } from './types'
+import { StripeService } from './stripe/StripeService'
+
 export class CustomGatewayAdapter implements PaymentGatwayAdapter {
   context: AdapterContext
   logger: Logger
-  settings?: CustomAdapterSettings
-  constructor(context: AdapterContext, logger: Logger, settings?: CustomAdapterSettings) {
+  service: StripeService
+  constructor(context: AdapterContext, logger: Logger, service: StripeService) {
     this.context = context
     this.logger = logger
-    this.settings = settings
+    this.service = service
   }
   async authorize(request: GatewayAuthorizationRequest): Promise<GatewayAuthorizeResponse> {
-    //   this.logger.info('info message');
-    //   example response
-    //   return {
-    //     authCode: "CAPTURED",
-    //     responseCode: "food",
-    //     responseText : "Captured via CustomGatewayAdapter"
-    //   };
-    throw new Error('Method not implemented.')
+    return await this.service.authorize(request)
   }
   async authorizeWithToken(
     request: GatewayAuthorizationRequest
   ): Promise<GatewayAuthorizeResponse> {
+    request.data
     throw new Error('Method not implemented.')
   }
   async capture(request: CaptureRequest): Promise<GatewayCaptureResponse> {
-    throw new Error('Method not implemented.')
+    return await this.service.capture(request)
   }
   async credit(request: CreditRequest): Promise<GatewayCreditResponse> {
-    throw new Error('Method not implemented.')
+    return await this.service.credit(request)
   }
   async void(request: CaptureRequest): Promise<GatewayVoidResponse> {
-    throw new Error('Method not implemented.')
+    return await this.service.void(request)
   }
   async authorizeAndCapture(request: GatewayAuthorizationRequest): Promise<GatewayDebitResponse> {
-    throw new Error('Method not implemented.')
+    return await this.service.authorizeAndCapture(request)
   }
   async authorizeAndCaptureWithToken(
     request: GatewayAuthorizationRequest
   ): Promise<GatewayDebitResponse> {
+    this.logger.info('authorizeAndCaptureWithToken : ', request?.apiVersion)
     throw new Error('Method not implemented.')
   }
   async createGiftCard(
     request: GatewayGiftCardCreateResponse
   ): Promise<GatewayGiftCardCreateRequest> {
+    this.logger.info('createGiftCard : ', request?.transactionId)
     throw new Error('Method not implemented.')
   }
   async getBalance(
     request: GatewayGetGiftCardBalanceRequest
   ): Promise<GatewayGetGiftCardBalanceResponse> {
+    this.logger.info('getBalance : ', request?.apiVersion)
     throw new Error('Method not implemented.')
   }
   async validateAuthTransaction(request: GatewayInteraction): Promise<ValidateResponse> {
-    throw new Error('Method not implemented.')
+    return {
+      isDeclined: false,
+      remoteConnectionStatus: ConnectionStatuses.Success,
+      isValid: true,
+      responseText: 'OK',
+    }
   }
   async getAuthorizationIDKeyName(): Promise<AuthorizeIdKeyNameResponse> {
-    throw new Error('Method not implemented.')
-  }
-  async session(request: SessionRequest): Promise<SessionResponse> {
     throw new Error('Method not implemented.')
   }
 }
